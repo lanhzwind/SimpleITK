@@ -51,6 +51,7 @@ include(sitkCheckRequiredFlags)
 
 find_package(ITK REQUIRED ) # the modules needed can be listed here as required components
 if(ITK_FOUND)
+  find_package(GDCM PATHS ${GDCM_DIR} REQUIRED)
 
   # NOTE: We are purposely not calling UseITK yet. However, we must make
   # sure the requred compilation and linker flags are set. Since, we
@@ -65,7 +66,8 @@ if(ITK_FOUND)
   set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} ${ITK_REQUIRED_LINK_FLAGS}")
   set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} ${ITK_REQUIRED_LINK_FLAGS}")
 
-  link_directories( "${ITK_LIBRARY_DIRS}")
+    link_directories( "${ITK_LIBRARY_DIRS}" "${GDCM_LIBRARY_DIRS}")
+    list(REMOVE_ITEM ITK_LIBRARIES ITKVideoBridgeOpenCV ITKVideoCore ITKVideoIO)
 
 
 endif()
@@ -514,7 +516,7 @@ install(FILES ${SimpleITK_DOC_FILES} DESTINATION "${SimpleITK_INSTALL_DOC_DIR}" 
 #------------------------------------------------------------------------------
 # CPack
 
-set(CPACK_SOURCE_IGNORE_FILES  "${ITK_MODULES_DISABLED_CPACK};/\\\\.git")
+set(CPACK_SOURCE_IGNORE_FILES  "${ITK_MODULES_DISABLED_CPACK}/\\\\.git")
 set(CPACK_PACKAGE_VERSION_MAJOR "${SimpleITK_Major}")
 set(CPACK_PACKAGE_VERSION_MINOR "${SimpleITK_Minor}")
 set(CPACK_PACKAGE_VERSION_PATCH "${SimpleITK_Patch}")
