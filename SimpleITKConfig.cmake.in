@@ -37,14 +37,14 @@ if(NOT ITK_CONFIG_TARGETS_FILE)
 endif()
 
 # Import ITK targets.
-if(NOT ITK_TARGETS_IMPORTED)
+if(NOT TARGET ITKCommon)
   set(ITK_TARGETS_IMPORTED 1)
   include("${ITK_CONFIG_TARGETS_FILE}")
 endif()
 
 # Import SimpleITK targets.
 set(SimpleITK_TARGETS_FILE "${_SimpleITKConfig_DIR}/SimpleITKTargets.cmake")
-if(NOT SimpleITK_TARGETS_IMPORTED)
+if(NOT TARGET SimpleITKCommon)
   set(SimpleITK_TARGETS_IMPORTED 1)
   include("${SimpleITK_TARGETS_FILE}")
 endif()
