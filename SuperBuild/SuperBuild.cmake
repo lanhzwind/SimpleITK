@@ -313,6 +313,8 @@ ExternalProject_Add(${proj}
     ${ep_languages_args}
     # ITK
     -DITK_DIR:PATH=${ITK_DIR}
+    # GDCM
+    -DGDCM_DIR:PATH=${GDCM_DIR}
     # Swig
     -DSWIG_DIR:PATH=${SWIG_DIR}
     -DSWIG_EXECUTABLE:PATH=${SWIG_EXECUTABLE}
@@ -324,7 +326,9 @@ ExternalProject_Add(${proj}
     -DWRAP_TCL:BOOL=${WRAP_TCL}
     -DWRAP_CSHARP:BOOL=${WRAP_CSHARP}
     -DWRAP_R:BOOL=${WRAP_R}
-    -DBUILD_EXAMPLES:BOOL=${BUILD_TESTING}
+    -DBUILD_EXAMPLES:BOOL=${BUILD_EXAMPLES}
+    -DSimpleITK_BUILD_DISTRIBUTE:BOOL=${SimpleITK_BUILD_DISTRIBUTE}
+    -DSimpleITK_PYTHON_THREADS:BOOL=${SimpleITK_PYTHON_THREADS}
   DEPENDS ${${CMAKE_PROJECT_NAME}_DEPENDENCIES}
 )
 
@@ -344,13 +348,14 @@ ExternalProject_Add_Step(${proj} forcebuild
 # We build SimpleITKExamples as an enternal project to verify
 # installation of SimpleITK
 
-include(External_SimpleITKExamples)
+#include(External_SimpleITKExamples)
 
 
 #------------------------------------------------------------------------------
 # List of external projects
 #------------------------------------------------------------------------------
-set(external_project_list ITK Swig SimpleITKExamples PCRE ${CMAKE_PROJECT_NAME})
+#set(external_project_list ITK Swig SimpleITKExamples PCRE ${CMAKE_PROJECT_NAME})
+set(external_project_list ITK Swig PCRE ${CMAKE_PROJECT_NAME})
 
 #-----------------------------------------------------------------------------
 # Dump external project dependencies
